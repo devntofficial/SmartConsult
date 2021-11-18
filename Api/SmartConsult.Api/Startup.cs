@@ -1,16 +1,13 @@
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SmartConsult.Data.Requests;
+using SmartConsult.Services;
+using System.Reflection;
 
 namespace SmartConsult.Api
 {
@@ -23,9 +20,17 @@ namespace SmartConsult.Api
 
         public IConfiguration Configuration { get; }
 
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddScoped<IDoctorService, DoctorService>();
+            services.AddTransient<IDemoDependency, DemoDependency>();
+
+            var dataAssembly = Assembly.GetAssembly(typeof(DoctorRequestValidator));
+            services.AddValidatorsFromAssemblies(new[] { dataAssembly });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -45,9 +50,12 @@ namespace SmartConsult.Api
 
             app.UseHttpsRedirection();
 
+
+
             app.UseRouting();
 
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

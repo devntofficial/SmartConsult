@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartConsult.Api", "SmartConsult.Api\SmartConsult.Api.csproj", "{9927A657-6E3F-4CA0-9555-F9529698FD6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartConsult.Api", "SmartConsult.Api\SmartConsult.Api.csproj", "{9927A657-6E3F-4CA0-9555-F9529698FD6A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartConsult.Data", "SmartConsult.Data\SmartConsult.Data.csproj", "{71769041-DFA7-46E5-92EC-05498E1B5E95}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartConsult.Services", "SmartConsult.Services\SmartConsult.Services.csproj", "{58E6C9F3-606A-4ABD-B961-7D19FF7FBE99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{9927A657-6E3F-4CA0-9555-F9529698FD6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9927A657-6E3F-4CA0-9555-F9529698FD6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9927A657-6E3F-4CA0-9555-F9529698FD6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71769041-DFA7-46E5-92EC-05498E1B5E95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71769041-DFA7-46E5-92EC-05498E1B5E95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71769041-DFA7-46E5-92EC-05498E1B5E95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71769041-DFA7-46E5-92EC-05498E1B5E95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58E6C9F3-606A-4ABD-B961-7D19FF7FBE99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58E6C9F3-606A-4ABD-B961-7D19FF7FBE99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58E6C9F3-606A-4ABD-B961-7D19FF7FBE99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58E6C9F3-606A-4ABD-B961-7D19FF7FBE99}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

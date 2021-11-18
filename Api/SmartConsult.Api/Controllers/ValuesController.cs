@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System.Net.Http;
 
 namespace SmartConsult.Api.Controllers
 {
@@ -21,7 +22,8 @@ namespace SmartConsult.Api.Controllers
         {
             var myCustomConfig = new MyCustomConfig();
             configuration.Bind("testConfig2", myCustomConfig);
-            return Ok(myCustomConfig);
+
+            return StatusCode(StatusCodes.Status404NotFound, "not found value");
         }
 
     }

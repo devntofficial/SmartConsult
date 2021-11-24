@@ -21,19 +21,12 @@ namespace SmartConsult.Data.Requests
         public DoctorRequestValidator()
         {
             RuleFor(x => x.Name).NotEmpty().MinimumLength(3);
-            RuleFor(x => x.Speciality).Must(BeAValidSpecilaity).Must(NotHaveSymbols);
-        }
-
-        private bool NotHaveSymbols(string speciality)
-        {
-            throw new NotImplementedException();
+            RuleFor(x => x.Speciality).Must(BeAValidSpecilaity);
         }
 
         private bool BeAValidSpecilaity(string speciality)
         {
-            //reg
-            //
-            return Regex.IsMatch(speciality, "");
+            return true;
             
         }
     }

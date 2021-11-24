@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartConsult.Data.Requests;
 using SmartConsult.Services;
-using System;
 
 namespace SmartConsult.Api.Controllers
 {
@@ -13,35 +12,25 @@ namespace SmartConsult.Api.Controllers
 
         private IDoctorService service;//transient
         private readonly IDemoDependency demo;
-        private readonly IValidator<CreateDoctorRequestData> validator;
 
-        public DoctorController(IDoctorService abc, IDemoDependency demo, IValidator<CreateDoctorRequestData> validator)
+        public DoctorController(IDoctorService abc, IDemoDependency demo)
         {
             service = abc;
             this.demo = demo;
-            this.validator = validator;
         }
 
 
         [HttpPost("/api/doctor")]
-        public IActionResult CreateDoctor(CreateDoctorRequestData data)
+        public IActionResult CreateDoctor(CreateDoctorRequestData data, [FromServices] IValidator<CreateDoctorRequestData> validator)
         {
             var output = validator.Validate(data);
-            if(output.IsValid)
+            if (output.IsValid)
             {
                 var id = service.CreateDoctor(data);
                 return Ok(id);
             }
             return BadRequest();
-            
-        }
 
-        [HttpPut("/api/doctor")]
-        public IActionResult UpdateDoctor(CreateDoctorRequestData data)
-        {
-            var id = service.CreateDoctor(data);
-            return Ok(id);
         }
-
     }
 }

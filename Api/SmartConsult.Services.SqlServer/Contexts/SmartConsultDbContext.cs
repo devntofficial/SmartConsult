@@ -1,0 +1,25 @@
+﻿using Microsoft.EntityFrameworkCore;
+using SmartConsult.Services.SqlServer.Configurations;
+using SmartConsult.Services.SqlServer.Entities;
+
+namespace SmartConsult.Services.SqlServer.Contexts
+{
+    public class SmartConsultDbContext : DbContext
+    {
+        public SmartConsultDbContext(DbContextOptions<SmartConsultDbContext> options) : base(options)
+        {
+
+        }
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            //builder.Entity<DoctorProfileEntity>().ToTable("").HasKey(x => x.ProfileId).HasName("Id");
+            builder.ApplyConfigurationsFromAssembly(typeof(DoctorProfileEntityConfiguration).Assembly);
+        }
+
+
+        public DbSet<DoctorProfileEntity> DoctorProfiles { get; set; }
+        public DbSet<MemberProfileEntity> MemberProfiles { get; set; }
+    }
+}

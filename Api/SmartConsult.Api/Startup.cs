@@ -36,6 +36,9 @@ namespace SmartConsult.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SmartConsult.Api", Version = "v1" });
             });
+
+            //configure context here
+            //link
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

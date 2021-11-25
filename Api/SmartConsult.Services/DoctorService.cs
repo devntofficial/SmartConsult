@@ -14,7 +14,7 @@ namespace SmartConsult.Services
 
         public Guid CreateDoctor(CreateDoctorRequestData data)
         {
-            //map your data to entity - AutoMapper
+            //map your data to entity - AutoMapper / 
             //call sql database and store entity
             //return id
             Console.WriteLine("Demo object id in service: " + demo.getId());

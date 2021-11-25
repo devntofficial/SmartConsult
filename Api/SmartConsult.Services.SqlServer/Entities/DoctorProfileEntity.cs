@@ -11,11 +11,12 @@ namespace SmartConsult.Services.SqlServer.Entities
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProfileId { get; set; }
 
-        //[Required]
+        [Required]
         public string FullName { get; set; }
 
         public DateTime DateOfBirth { get; set; }
 
+        [Required]
         public string Speciality { get; set; }
 
     }

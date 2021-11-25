@@ -11,7 +11,7 @@ namespace SmartConsult.Services.SqlServer.Configurations
             builder.ToTable("DoctorProfiles");
             builder.HasKey(x => x.ProfileId);
 
-            builder.Property(x => x.ProfileId).ValueGeneratedOnAdd();
+            builder.Property(x => x.ProfileId).ValueGeneratedOnAdd().HasColumnName("Id");
             builder.Property(x => x.FullName).HasColumnType("varchar(50)").IsRequired();
 
 

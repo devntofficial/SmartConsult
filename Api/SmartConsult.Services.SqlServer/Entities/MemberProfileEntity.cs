@@ -4,11 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartConsult.Services.SqlServer.Entities
 {
-    //[Table("DoctorProfiles")]
     public class MemberProfileEntity
     {
-        //[Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProfileId { get; set; }
 
         public string FullName { get; set; }

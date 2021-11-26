@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SmartConsult.Services.SqlServer\SmartConsult.Services.SqlServer.csproj" />
-    <ProjectReference Include="..\SmartConsult.Services\SmartConsult.Services.csproj" />
   </ItemGroup>
 
 </Project>

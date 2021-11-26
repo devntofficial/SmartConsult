@@ -1,27 +1,67 @@
-﻿using SmartConsult.Data.Requests;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartConsult.Data.Requests;
+using SmartConsult.Data.Services;
 using SmartConsult.Services.SqlServer.Contexts;
+using SmartConsult.Services.SqlServer.Entities;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartConsult.Services.SqlServer
 {
     public class DoctorService : IDoctorService
     {
-        private readonly IDemoDependency demo;
         private readonly SmartConsultDbContext db;
 
-        public DoctorService(IDemoDependency demo, SmartConsultDbContext db)
+        public DoctorService(SmartConsultDbContext db)
         {
-            this.demo = demo;
             this.db = db;
         }
 
-        public Guid CreateDoctor(CreateDoctorRequestData data)
+        public async Task<Guid> CreateProfileAsync(DoctorProfileData data, CancellationToken token = default)
         {
-            //call sql database and store
-            //return id
+            var profile = new DoctorProfileEntity
+            {
+                Address = data.Address,
+                DateOfBirth = data.DateOfBirth,
+                EmailId = data.EmailId,
+                FullName = data.FullName,
+                MobileNo = data.MobileNo,
+                Speciality = data.Speciality,
+                Timestamp = DateTime.UtcNow,
+            };
 
-            Console.WriteLine("Demo object id in service: " + demo.getId());
-            return Guid.NewGuid();
+            db.DoctorProfiles.Add(profile);
+            await db.SaveChangesAsync(token);
+
+            return profile.ProfileId;
+        }
+
+        public async Task<DoctorProfileData> GetProfileAsync(string doctorId, CancellationToken token)
+        {
+            Guid.TryParse(doctorId, out var guid);
+            if(guid.Equals(Guid.Empty))
+            {
+                return null;
+            }
+
+            var profile = await db.DoctorProfiles.SingleOrDefaultAsync(x => x.ProfileId == guid, token);
+
+            if(profile == null)
+            {
+                return null;
+            }
+
+            var data = new DoctorProfileData
+            {
+                Address = profile.Address,
+                DateOfBirth = profile.DateOfBirth,
+                EmailId = profile.EmailId,
+                FullName = profile.FullName,
+                MobileNo = profile.MobileNo,
+                Speciality = profile.Speciality
+            };
+            return data;
         }
     }
 }

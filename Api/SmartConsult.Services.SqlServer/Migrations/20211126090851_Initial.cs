@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SmartConsult.Services.SqlServer.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,22 +11,25 @@ namespace SmartConsult.Services.SqlServer.Migrations
                 name: "DoctorProfiles",
                 columns: table => new
                 {
-                    ProfileId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FullName = table.Column<string>(type: "varchar(50)", nullable: false),
+                    EmailId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MobileNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Speciality = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Speciality = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DoctorProfiles", x => x.ProfileId);
+                    table.PrimaryKey("PK_DoctorProfiles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "MemberProfiles",
+                name: "Members",
                 columns: table => new
                 {
-                    ProfileId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -34,7 +37,7 @@ namespace SmartConsult.Services.SqlServer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MemberProfiles", x => x.ProfileId);
+                    table.PrimaryKey("PK_Members", x => x.Id);
                 });
         }
 
@@ -44,7 +47,7 @@ namespace SmartConsult.Services.SqlServer.Migrations
                 name: "DoctorProfiles");
 
             migrationBuilder.DropTable(
-                name: "MemberProfiles");
+                name: "Members");
         }
     }
 }

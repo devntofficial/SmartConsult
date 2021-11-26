@@ -7,7 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SmartConsult.Data.Requests;
-using SmartConsult.Services;
+using SmartConsult.Data.Services;
+using SmartConsult.Services.SqlServer;
 using SmartConsult.Services.SqlServer.Contexts;
 using System.Reflection;
 
@@ -28,7 +29,6 @@ namespace SmartConsult.Api
         {
 
             services.AddScoped<IDoctorService, DoctorService>();
-            services.AddTransient<IDemoDependency, DemoDependency>();
 
             var dataAssembly = Assembly.GetAssembly(typeof(DoctorRequestValidator));
             services.AddValidatorsFromAssemblies(new[] { dataAssembly });

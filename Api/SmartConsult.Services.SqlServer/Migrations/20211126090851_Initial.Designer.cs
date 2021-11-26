@@ -10,8 +10,8 @@ using SmartConsult.Services.SqlServer.Contexts;
 namespace SmartConsult.Services.SqlServer.Migrations
 {
     [DbContext(typeof(SmartConsultDbContext))]
-    [Migration("20211125090806_ColumnChangedToIdInDoctorProfile")]
-    partial class ColumnChangedToIdInDoctorProfile
+    [Migration("20211126090851_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,22 +23,32 @@ namespace SmartConsult.Services.SqlServer.Migrations
 
             modelBuilder.Entity("SmartConsult.Services.SqlServer.Entities.DoctorProfileEntity", b =>
                 {
-                    b.Property<int>("ProfileId")
+                    b.Property<Guid>("ProfileId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("Id");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("EmailId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.Property<string>("Speciality")
-                        .IsRequired()
+                    b.Property<string>("MobileNo")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Speciality")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ProfileId");
 
@@ -50,6 +60,7 @@ namespace SmartConsult.Services.SqlServer.Migrations
                     b.Property<int>("ProfileId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
+                        .HasColumnName("Id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DateOfBirth")
@@ -63,7 +74,7 @@ namespace SmartConsult.Services.SqlServer.Migrations
 
                     b.HasKey("ProfileId");
 
-                    b.ToTable("MemberProfiles");
+                    b.ToTable("Members");
                 });
 #pragma warning restore 612, 618
         }

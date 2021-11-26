@@ -14,7 +14,8 @@ namespace SmartConsult.Services.SqlServer.Contexts
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<MemberProfileEntity>().ToTable("Members").HasKey(x => x.ProfileId).HasName("Id");
+            builder.Entity<MemberProfileEntity>().ToTable("Members").HasKey(x => x.ProfileId);
+            builder.Entity<MemberProfileEntity>().Property(x => x.ProfileId).HasColumnName("Id");
             builder.ApplyConfigurationsFromAssembly(typeof(DoctorProfileEntityConfiguration).Assembly);
         }
 

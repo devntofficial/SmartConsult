@@ -1,9 +1,12 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using SmartConsult.Data.Requests;
+using SmartConsult.Data.Services;
 using SmartConsult.Services;
 using SmartConsult.Services.SqlServer.Contexts;
 using SmartConsult.Services.SqlServer.Entities;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SmartConsult.Api.Controllers
 {
@@ -11,41 +14,37 @@ namespace SmartConsult.Api.Controllers
     [ApiController]
     public class DoctorController : ControllerBase
     {
+        private readonly IDoctorService service;
 
-        private IDoctorService service;//transient
-        private readonly IDemoDependency demo;
-        private readonly SmartConsultDbContext db;
-
-        public DoctorController(IDoctorService abc, IDemoDependency demo, SmartConsultDbContext db)
+        public DoctorController(IDoctorService service)
         {
-            service = abc;
-            this.demo = demo;
-            this.db = db;
+            this.service = service;
         }
 
 
         [HttpPost("/api/doctor")]
-        public IActionResult CreateDoctor(CreateDoctorRequestData data, [FromServices] IValidator<CreateDoctorRequestData> validator)
+        public async Task<IActionResult> CreateDoctorProfile(DoctorProfileData data,
+            [FromServices] IValidator<DoctorProfileData> validator, CancellationToken token = default)
         {
-            //var output = validator.Validate(data);
-            //if (output.IsValid)
-            //{
-            //    var id = service.CreateDoctor(data);
-            //    return Ok(id);
-            //}
+            var output = await validator.ValidateAsync(data, token);
+            if (output.IsValid)
+            {
+                var id = await service.CreateProfileAsync(data, token);
+                return Ok(id);
+            }
+            return BadRequest();
+        }
 
-
-            var DoctorProfile = new DoctorProfileEntity();
-            DoctorProfile.Speciality = "Heart";
-            DoctorProfile.FullName = "Nikhil";
-            DoctorProfile.DateOfBirth = System.DateTime.UtcNow;
-
-
-            db.DoctorProfiles.Add(DoctorProfile);
-            db.SaveChanges();
-
-            return Ok();
-
+        [HttpGet("/api/doctor/{doctorId}")]
+        public async Task<IActionResult> GetDoctorProfile([FromRoute]string doctorId,
+            [FromServices] IValidator<DoctorProfileData> validator, CancellationToken token = default)
+        {
+            if (!string.IsNullOrWhiteSpace(doctorId))
+            {
+                var profile = await service.GetProfileAsync(doctorId, token);
+                return profile == null ? NotFound() : Ok(profile);
+            }
+            return BadRequest();
         }
     }
 }

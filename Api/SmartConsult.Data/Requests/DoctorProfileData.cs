@@ -1,26 +1,23 @@
 ﻿using FluentValidation;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
 
 namespace SmartConsult.Data.Requests
 {
     public class DoctorProfileData
     {
-        public string FullName { get; set; }
-        public string EmailId { get; set; }
-        public string MobileNo { get; set; }
-        public string Address { get; set; }
-        public DateTime DateOfBirth { get; set; }
-        public string Speciality { get; set; }
+        public string DataFullName { get; set; }
+        public string DataEmailId { get; set; }
+        public string DataMobileNo { get; set; }
+        public string DataAddress { get; set; }
+        public string DataDateOfBirth { get; set; }
+        public string DataSpecialityName { get; set; }
     }
 
     public class DoctorRequestValidator : AbstractValidator<DoctorProfileData>
     {
         public DoctorRequestValidator()
         {
-            
+
         }
     }
 }

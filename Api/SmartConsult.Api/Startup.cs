@@ -10,6 +10,7 @@ using SmartConsult.Data.Requests;
 using SmartConsult.Data.Services;
 using SmartConsult.Services.SqlServer;
 using SmartConsult.Services.SqlServer.Contexts;
+using SmartConsult.Services.SqlServer.Mappers;
 using System.Reflection;
 
 namespace SmartConsult.Api
@@ -43,11 +44,17 @@ namespace SmartConsult.Api
             {
                 x.UseSqlServer(Configuration.GetConnectionString("SmartConsultDb"));
             });
+
+            services.AddAutoMapper(x =>
+            {
+                x.AddProfile<DoctorMapperProfile>();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SmartConsultDbContext dbContext)
         {
+            dbContext.Database.Migrate();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

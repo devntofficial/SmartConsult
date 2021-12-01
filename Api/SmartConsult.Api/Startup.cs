@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using SmartConsult.Api.Middlewares;
 using SmartConsult.Data.Requests;
 using SmartConsult.Data.Services;
 using SmartConsult.Services.SqlServer;
@@ -49,6 +50,8 @@ namespace SmartConsult.Api
             {
                 x.AddProfile<DoctorMapperProfile>();
             });
+
+            services.AddTransient<ExceptionHandlingMiddleware>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +73,8 @@ namespace SmartConsult.Api
 
             app.UseAuthorization();
 
+            //middleware pipeline
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

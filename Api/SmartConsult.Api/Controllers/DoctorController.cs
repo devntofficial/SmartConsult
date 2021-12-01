@@ -5,6 +5,7 @@ using SmartConsult.Data.Services;
 using SmartConsult.Services;
 using SmartConsult.Services.SqlServer.Contexts;
 using SmartConsult.Services.SqlServer.Entities;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 

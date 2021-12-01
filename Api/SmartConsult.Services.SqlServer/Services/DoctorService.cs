@@ -25,6 +25,7 @@ namespace SmartConsult.Services.SqlServer
         public async Task<Guid> CreateProfileAsync(DoctorProfileData data, CancellationToken token = default)
         {
             //var profile = data.MapToEntity();
+
             var profile = mapper.Map<DoctorProfileEntity>(data);
 
             db.DoctorProfiles.Add(profile);

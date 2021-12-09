@@ -14,6 +14,7 @@ namespace SmartConsult.Services.SqlServer.Entities
         public DateTime DateOfBirth { get; set; }
         public string Speciality { get; set; }
         public DateTime Timestamp { get; set; }
+        public bool IsEmailSent { get; set; } = false;
 
     }
 }

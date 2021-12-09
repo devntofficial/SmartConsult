@@ -11,8 +11,8 @@ namespace SmartConsult.Services.SqlServer.Mappers
         {
             CreateMap<DoctorProfileEntity, DoctorProfileData>();
             CreateMap<DoctorProfileData, DoctorProfileEntity>()//100, 95 are similar, 5
-                .ForMember(x => x.EmailId, y => y.MapFrom(z => z.DataEmailId))
-                .ForMember(x => x.MobileNo, y => y.MapFrom(z => z.DataMobileNo));
+                .ForMember(x => x.EmailId, y => y.MapFrom(z => z.EmailId))
+                .ForMember(x => x.MobileNo, y => y.MapFrom(z => z.MobileNo));
 
             //CreateMap<DoctorProfileEntity, DoctorProfileData>().ConvertUsing(x => EntityToDataMapper(x));
             //CreateMap<DoctorProfileData, DoctorProfileEntity>().ConvertUsing(x => DataToEntityMapper(x));

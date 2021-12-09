@@ -5,9 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="10.3.4" />
     <PackageReference Include="MediatR" Version="9.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.12" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SmartConsult.Data\SmartConsult.Data.csproj" />
   </ItemGroup>
 
 </Project>

@@ -10,7 +10,7 @@ using SmartConsult.Services.SqlServer.Contexts;
 namespace SmartConsult.Services.SqlServer.Migrations
 {
     [DbContext(typeof(SmartConsultDbContext))]
-    [Migration("20211126090851_Initial")]
+    [Migration("20211209080856_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,9 @@ namespace SmartConsult.Services.SqlServer.Migrations
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
+
+                    b.Property<bool>("IsEmailSent")
+                        .HasColumnType("bit");
 
                     b.Property<string>("MobileNo")
                         .HasColumnType("nvarchar(max)");

@@ -1,16 +1,21 @@
 ﻿using FluentValidation;
-using System;
+using MediatR;
+using Microsoft.AspNetCore.Http;
+using SmartConsult.Data.Responses;
+using System.Collections.Generic;
 
 namespace SmartConsult.Data.Requests
 {
-    public class DoctorProfileData
+    public class DoctorProfileData : IRequest<DoctorProfileDataResponse>
     {
-        public string DataFullName { get; set; }
-        public string DataEmailId { get; set; }
-        public string DataMobileNo { get; set; }
-        public string DataAddress { get; set; }
-        public string DataDateOfBirth { get; set; }
-        public string DataSpecialityName { get; set; }
+        public string FullName { get; set; }
+        public string EmailId { get; set; }
+        public string MobileNo { get; set; }
+        public string Address { get; set; }
+        public string DateOfBirth { get; set; }
+        public string Speciality { get; set; }
+
+        public List<IFormFile> Files { get; set; }
     }
 
     public class DoctorRequestValidator : AbstractValidator<DoctorProfileData>

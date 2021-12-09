@@ -9,5 +9,6 @@ namespace SmartConsult.Data.Services
     {
         Task<Guid> CreateProfileAsync(DoctorProfileData data, CancellationToken token = default);
         Task<DoctorProfileData> GetProfileAsync(string doctorId, CancellationToken token);
+        Task DeleteProfileAsync(Guid id, CancellationToken token);
     }
 }

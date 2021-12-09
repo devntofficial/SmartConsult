@@ -4,7 +4,6 @@ using SmartConsult.Data.Requests;
 using SmartConsult.Data.Services;
 using SmartConsult.Services.SqlServer.Contexts;
 using SmartConsult.Services.SqlServer.Entities;
-using SmartConsult.Services.SqlServer.Mappers;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,8 +29,16 @@ namespace SmartConsult.Services.SqlServer
 
             db.DoctorProfiles.Add(profile);
             await db.SaveChangesAsync(token);
-
+            Console.WriteLine("Profile created");
             return profile.ProfileId;
+        }
+
+        public async Task DeleteProfileAsync(Guid id, CancellationToken token)
+        {
+            var profile = await db.DoctorProfiles.SingleOrDefaultAsync(x => x.ProfileId == id, token);
+            db.DoctorProfiles.Remove(profile);
+            await db.SaveChangesAsync(token);
+            Console.WriteLine("Profile deleted");
         }
 
         public async Task<DoctorProfileData> GetProfileAsync(string doctorId, CancellationToken token)

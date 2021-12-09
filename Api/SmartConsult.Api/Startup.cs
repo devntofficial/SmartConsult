@@ -1,4 +1,5 @@
 using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,12 +7,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using SmartConsult.Api.BackgroundServices;
 using SmartConsult.Api.Middlewares;
 using SmartConsult.Data.Requests;
 using SmartConsult.Data.Services;
 using SmartConsult.Services.SqlServer;
 using SmartConsult.Services.SqlServer.Contexts;
 using SmartConsult.Services.SqlServer.Mappers;
+using SmartConsult.Services.SqlServer.Services;
 using System.Reflection;
 
 namespace SmartConsult.Api
@@ -31,6 +34,9 @@ namespace SmartConsult.Api
         {
 
             services.AddScoped<IDoctorService, DoctorService>();
+            services.AddScoped<ISmsService, SmsService>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IFileService, FileService>();
 
             var dataAssembly = Assembly.GetAssembly(typeof(DoctorRequestValidator));
             services.AddValidatorsFromAssemblies(new[] { dataAssembly });
@@ -52,6 +58,10 @@ namespace SmartConsult.Api
             });
 
             services.AddTransient<ExceptionHandlingMiddleware>();
+
+            //services.AddHostedService<TestBackgroundService>();
+
+            services.AddMediatR(Assembly.Load("SmartConsult.Api.Handlers"), Assembly.Load("SmartConsult.Data"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,8 +77,6 @@ namespace SmartConsult.Api
 
             app.UseHttpsRedirection();
 
-
-
             app.UseRouting();
 
             app.UseAuthorization();
@@ -78,7 +86,7 @@ namespace SmartConsult.Api
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers();//pipeline -> filters -> auth -> action -> result -> exception
             });
         }
     }

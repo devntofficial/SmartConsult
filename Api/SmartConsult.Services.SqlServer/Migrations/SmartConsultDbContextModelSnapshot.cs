@@ -39,6 +39,9 @@ namespace SmartConsult.Services.SqlServer.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
+                    b.Property<bool>("IsEmailSent")
+                        .HasColumnType("bit");
+
                     b.Property<string>("MobileNo")
                         .HasColumnType("nvarchar(max)");
 
